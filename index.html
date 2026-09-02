@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santosh Tayi — Product & Business Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAFAF8;
+    --band:#EEF1EF;
+    --ink:#132238;
+    --slate:#4E5A68;
+    --slate-light:#8894A0;
+    --amber:#C1740A;
+    --teal:#12796B;
+    --line:#DADFDD;
+    --white:#FFFFFF;
+    --maxw:860px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation:none!important; transition:none!important;} }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk',sans-serif;
+    margin:0;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  .mono{ font-family:'IBM Plex Mono',monospace; }
+  a{ color:inherit; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,250,248,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:56px;
+  }
+  nav .brand{
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;
+  }
+  nav .links{ display:flex; gap:22px; }
+  nav .links a{
+    font-size:13.5px; color:var(--slate); text-decoration:none;
+    border-bottom:1px solid transparent; padding-bottom:2px;
+    transition:color .15s, border-color .15s;
+  }
+  nav .links a:hover{ color:var(--ink); border-color:var(--amber); }
+  nav .resume-btn{
+    font-size:13px; font-weight:500; color:var(--white); background:var(--ink);
+    padding:7px 14px; border-radius:3px; text-decoration:none; white-space:nowrap;
+  }
+  nav .resume-btn:hover{ background:var(--teal); }
+
+  /* ---------- HERO ---------- */
+  header.hero{ padding:64px 0 48px; }
+  .status-line{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--teal);
+    background:rgba(18,121,107,0.08); border:1px solid rgba(18,121,107,0.25);
+    padding:5px 10px; border-radius:3px; margin-bottom:22px;
+  }
+  .status-dot{
+    width:6px; height:6px; border-radius:50%; background:var(--teal);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+  .hero h1{ font-size:44px; line-height:1.12; font-weight:700; max-width:640px; }
+  .hero .role{ font-size:19px; color:var(--slate); margin-top:14px; max-width:560px; }
+  .hero .meta{
+    margin-top:22px; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--slate-light);
+    display:flex; flex-wrap:wrap; gap:18px;
+  }
+  .hero .meta span{ display:flex; align-items:center; gap:6px; }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{ padding:52px 0; border-top:1px solid var(--line); }
+  section.band{ background:var(--band); }
+  .section-head{ margin-bottom:30px; }
+  .section-head h2{ font-size:24px; font-weight:600; }
+  .section-head p{ color:var(--slate); font-size:15px; margin-top:6px; max-width:560px; }
+
+  /* ---------- SUMMARY ---------- */
+  .summary p{ font-size:16.5px; color:var(--slate); max-width:680px; }
+
+  /* ---------- KPI ROW ---------- */
+  .kpi-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-left:1px solid var(--line); }
+  .kpi{ padding:4px 20px; border-right:1px solid var(--line); }
+  .kpi .num{ font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:500; color:var(--ink); }
+  .kpi .num.amber{ color:var(--amber); }
+  .kpi .num.teal{ color:var(--teal); }
+  .kpi .label{ font-size:12.5px; color:var(--slate); margin-top:6px; line-height:1.4; }
+  @media (max-width:720px){
+    .kpi-row{ grid-template-columns:repeat(2,1fr); }
+    .kpi{ border-bottom:1px solid var(--line); padding:14px 16px; }
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{ position:relative; padding-left:26px; }
+  .timeline::before{
+    content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line);
+  }
+  .role-block{ position:relative; margin-bottom:38px; }
+  .role-block:last-child{ margin-bottom:0; }
+  .role-block::before{
+    content:''; position:absolute; left:-26px; top:5px; width:11px; height:11px; border-radius:50%;
+    background:var(--white); border:2px solid var(--teal);
+  }
+  .role-block .dates{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--slate-light);
+  }
+  .role-block h3{ font-size:17px; margin-top:4px; }
+  .role-block .company{ color:var(--amber); font-weight:500; }
+  .role-block ul{ margin:12px 0 0; padding-left:18px; color:var(--slate); font-size:14.5px; }
+  .role-block li{ margin-bottom:6px; }
+  .role-block li::marker{ color:var(--slate-light); }
+
+  /* ---------- PROJECTS ---------- */
+  .case{
+    border:1px solid var(--line); border-left:3px solid var(--amber);
+    background:var(--white); padding:22px 24px; margin-bottom:16px; border-radius:2px;
+  }
+  .case:nth-of-type(2){ border-left-color:var(--teal); }
+  .case .case-tag{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--slate-light);
+    letter-spacing:0.02em;
+  }
+  .case h3{ font-size:16.5px; margin-top:6px; }
+  .case p{ color:var(--slate); font-size:14.5px; margin-top:10px; }
+  .case .tags{ margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .case .tag{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--slate);
+    border:1px solid var(--line); padding:3px 8px; border-radius:3px;
+  }
+
+  /* ---------- ATTACHMENTS (deck / linkedin) ---------- */
+  .attach-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:720px){ .attach-grid{ grid-template-columns:1fr; } }
+  .attach-card{
+    border:1px dashed var(--slate-light); border-radius:4px; padding:20px;
+    background:var(--white); text-decoration:none; display:block;
+  }
+  .attach-card .kicker{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--slate-light); }
+  .attach-card h4{ font-family:'Space Grotesk',sans-serif; font-size:15px; margin:6px 0 4px; color:var(--ink); }
+  .attach-card p{ font-size:13px; color:var(--slate); margin:0; }
+
+  /* ---------- SKILLS ---------- */
+  .skill-group{ margin-bottom:18px; }
+  .skill-group h4{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--slate-light);
+    margin-bottom:10px; font-weight:400;
+  }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-size:13.5px; color:var(--ink); background:var(--white);
+    border:1px solid var(--line); padding:6px 12px; border-radius:3px;
+  }
+
+  /* ---------- EDUCATION ---------- */
+  .edu-item{ display:flex; justify-content:space-between; gap:20px; padding:14px 0; border-bottom:1px solid var(--line); }
+  .edu-item:last-child{ border-bottom:none; }
+  .edu-item h4{ font-family:'Space Grotesk',sans-serif; font-size:15px; }
+  .edu-item .school{ color:var(--slate); font-size:14px; margin-top:2px; }
+  .edu-item .dates{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--slate-light); white-space:nowrap; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:40px 0 60px; }
+  footer .foot-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  footer .contact a{ text-decoration:none; color:var(--slate); font-size:14px; margin-right:18px; }
+  footer .contact a:hover{ color:var(--teal); }
+  footer .copy{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--slate-light); margin-top:22px; }
+
+  @media (max-width:600px){
+    .hero h1{ font-size:32px; }
+    nav .links{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Santosh Tayi</div>
+    <div class="links">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+    </div>
+    <a class="resume-btn" href="Santosh_Tayi_Resume_ATS.docx" download>Download Résumé</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="status-line"><span class="status-dot"></span>OPEN TO PRODUCT / BUSINESS ANALYST ROLES</div>
+    <h1>I turn operational chaos into repeatable process.</h1>
+    <p class="role">Product &amp; Business Analyst with 4+ years at Uber resolving high-severity incidents, building processes from zero, and translating operational data into product decisions.</p>
+    <div class="meta">
+      <span>📍 Hyderabad, India</span>
+      <span>✉️ santoshtayi1999@gmail.com</span>
+      <span>📞 +91 76840 99109</span>
+      <span><a href="https://linkedin.com/in/santosh-tayi" target="_blank" rel="noopener">linkedin.com/in/santosh-tayi</a></span>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Overview</h2>
+    </div>
+    <div class="summary">
+      <p>I've spent the last four years at Uber sitting at the intersection of operations and data — resolving high-severity incidents affecting global driver operations, then going back and asking why they kept happening. That habit has led to building things nobody assigned me: a two-tier escalation model that replaced a single point of failure, a Jira labeling taxonomy that fixed broken case routing, a team's first-ever SOPs, and two dashboards I designed from scratch to track handoffs and quality. I'm currently completing an MBA in Business Analytics at BITS Pilani, pairing that operational instinct with formal analytical rigor — RFM-based rider segmentation is my current capstone project.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="impact">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Impact, in numbers</h2>
+    </div>
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="num amber">$200–350K</div>
+        <div class="label">recovered by catching a mislabeled fraud flag on AON insurance policies</div>
+      </div>
+      <div class="kpi">
+        <div class="num teal">1-in-6</div>
+        <div class="label">sales conversion rate achieved at Byju's, vs. company average of 1-in-20</div>
+      </div>
+      <div class="kpi">
+        <div class="num">30+</div>
+        <div class="label">analysts mentored and onboarded as a founding-cohort SME</div>
+      </div>
+      <div class="kpi">
+        <div class="num amber">100+</div>
+        <div class="label">case backlog churned into a sustainable, aligned queue</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Experience</h2>
+      <p>Four roles at Uber, each one building the analytical layer on top of the last.</p>
+    </div>
+    <div class="timeline">
+
+      <div class="role-block">
+        <div class="dates">OCT 2025 — PRESENT</div>
+        <h3>Product Analyst, Service Team Analyst III · <span class="company">Uber</span></h3>
+        <ul>
+          <li>Analyze operational trend data across 25 KPIs using SQL and dashboards to flag service-quality risks early — contributed to an 18% improvement across 4 key metrics.</li>
+          <li>Lead root cause analysis on recurring operational issues, shipping 6 process fixes that reduced repeat incidents by 10%.</li>
+          <li>Own operational response for high-severity incidents impacting global driver operations, coordinating across 12 stakeholder teams within an 18-hour SLA.</li>
+          <li>Partner with Engineering on a senior-citizen-friendly Uber booking flow and 24/7 support hotline — after usage data showed low adoption among riders 60+ was a UX gap, not a demand gap.</li>
+        </ul>
+      </div>
+
+      <div class="role-block">
+        <div class="dates">MAY 2023 — OCT 2025</div>
+        <h3>Service Team Analyst II — Bugs &amp; Outages, Tier I → Tier II · <span class="company">Uber</span></h3>
+        <ul>
+          <li>Selected for the pilot launch of the Bugs &amp; Outages Tier I team; built triage workflows that churned a 100+ case backlog into an aligned, sustainable queue.</li>
+          <li>Designed a Jira labeling taxonomy that fixed broken case routing caused by inconsistent nomenclature.</li>
+          <li>Redesigned a single-owner escalation process into a 2-tier investigation model, removing a single point of failure.</li>
+          <li>Promoted to Tier II: owned driver-queue inflow end-to-end, integrated AI chatbots into resolution workflows, and authored the team's first-ever SOPs.</li>
+          <li>Personally designed two dashboards — one tracking Tier 1 → Tier 2 handoff timestamps, one tracking Cases/Hour, WOR%, and Jira QA.</li>
+          <li>Mentored 30+ analysts as a founding-cohort SME, cutting new-hire ramp time by 25%.</li>
+        </ul>
+      </div>
+
+      <div class="role-block">
+        <div class="dates">JUL 2022 — MAY 2023</div>
+        <h3>Service Quality, Risk &amp; Compliance Specialist I · <span class="company">Uber</span></h3>
+        <ul>
+          <li>Audited 80+ cases per week for compliance and quality risk, reducing downstream policy violations by 12%.</li>
+          <li>Proactively investigated a suspected fraud flag on AON insurance policies, confirming it was legitimate U.S. temporary driver insurance — preventing an estimated $200–350K in wrongful losses.</li>
+          <li>Top Performer of the Month, 4 consecutive months, 99% QA — plus a separate out-of-the-box performer ("CST") recognition.</li>
+        </ul>
+      </div>
+
+      <div class="role-block">
+        <div class="dates">2021 — 2022</div>
+        <h3>Business Development — <span class="company">Byju's</span> &amp; <span class="company">Verzeo EduTech</span></h3>
+        <ul>
+          <li>Redesigned the sales pitch approach at Byju's, improving conversion from 1-in-20 to 1-in-6; earned recognition as team torch-bearer.</li>
+          <li>Selected from KIIT University campus placements for Verzeo; implemented early AI chatbot workflows for lead follow-up in 2021, ahead of broader industry adoption.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="band" id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Notable projects</h2>
+      <p>Work I built because a gap existed, not because it was assigned.</p>
+    </div>
+
+    <div class="case">
+      <div class="case-tag">CASE / SENIOR-FRIENDLY BOOKING · ONGOING</div>
+      <h3>Senior-friendly Uber experience</h3>
+      <p>Usage data showed low app adoption among riders 60+ — not from lack of need, but because adult children were booking on their behalf. Now partnering with Engineering on a simplified booking flow and a 24/7 hotline for login and account-creation support.</p>
+      <div class="tags"><span class="tag">data analysis</span><span class="tag">cross-functional</span><span class="tag">product design</span></div>
+    </div>
+
+    <div class="case">
+      <div class="case-tag">CASE / TEAM OPERATIONS DASHBOARDS · SELF-DESIGNED</div>
+      <h3>Handoff &amp; quality dashboards</h3>
+      <p>Designed a dashboard tracking case timestamps through the Tier 1 → Tier 2 handoff to expose escalation bottlenecks, plus a production dashboard tracking Cases/Hour, Waiting-on-Reporter %, and Jira QA — giving managers real-time visibility into throughput and quality.</p>
+      <div class="tags"><span class="tag">dashboard design</span><span class="tag">KPI tracking</span><span class="tag">process visibility</span></div>
+    </div>
+
+    <div class="case">
+      <div class="case-tag">CASE / RFM RIDER SEGMENTATION · MBA CAPSTONE, BITS PILANI</div>
+      <h3>RFM-based rider segmentation for Uber</h3>
+      <p>Applying Recency-Frequency-Monetary analysis to segment riders into actionable behavioral cohorts, translating segmentation output into retention and engagement recommendations.</p>
+      <div class="tags"><span class="tag">RFM analysis</span><span class="tag">segmentation</span><span class="tag">business analytics</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="deck-linkedin">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Deep dives</h2>
+      <p>Project decks and write-ups, linked here.</p>
+    </div>
+    <div class="attach-grid">
+      <a class="attach-card" href="#" target="_blank" rel="noopener">
+        <div class="kicker">PPT · ADD LINK</div>
+        <h4>RFM Segmentation — Project Deck</h4>
+        <p>Link the hosted PPT or a PDF export here.</p>
+      </a>
+      <a class="attach-card" href="#" target="_blank" rel="noopener">
+        <div class="kicker">LINKEDIN · ADD LINK</div>
+        <h4>Post: Catching the AON fraud flag</h4>
+        <p>Link your LinkedIn post URL here.</p>
+      </a>
+      <a class="attach-card" href="#" target="_blank" rel="noopener">
+        <div class="kicker">PPT · ADD LINK</div>
+        <h4>Senior-Friendly Uber — Project Deck</h4>
+        <p>Link the hosted PPT or a PDF export here.</p>
+      </a>
+      <a class="attach-card" href="#" target="_blank" rel="noopener">
+        <div class="kicker">LINKEDIN · ADD LINK</div>
+        <h4>Post: Building the team's first SOPs</h4>
+        <p>Link your LinkedIn post URL here.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Skills</h2>
+    </div>
+    <div class="skill-group">
+      <h4>data analysis &amp; reporting</h4>
+      <div class="chip-row">
+        <span class="chip">SQL</span><span class="chip">Excel (Advanced)</span><span class="chip">Tableau</span>
+        <span class="chip">Power BI</span><span class="chip">KPI Dashboards</span><span class="chip">Trend Analysis</span>
+        <span class="chip">Root Cause Analysis</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>product &amp; process</h4>
+      <div class="chip-row">
+        <span class="chip">Process Improvement</span><span class="chip">Customer Segmentation (RFM)</span>
+        <span class="chip">Incident &amp; Escalation Management</span><span class="chip">SOP Design</span>
+        <span class="chip">Workflow Design</span><span class="chip">AI Chatbot Implementation</span>
+        <span class="chip">Fraud Investigation</span><span class="chip">Jira</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>stakeholder &amp; team</h4>
+      <div class="chip-row">
+        <span class="chip">Cross-Functional Stakeholder Management</span><span class="chip">Coaching &amp; Onboarding</span>
+        <span class="chip">Team Leadership</span><span class="chip">Executive Presentation &amp; Reporting</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Education</h2>
+    </div>
+    <div class="edu-item">
+      <div>
+        <h4>MBA, Business Analytics</h4>
+        <div class="school">BITS Pilani, Hyderabad Campus (WILP)</div>
+      </div>
+      <div class="dates">2024 – 2026 (Expected)</div>
+    </div>
+    <div class="edu-item">
+      <div>
+        <h4>B.Tech, Mechanical Engineering (Automobile)</h4>
+        <div class="school">KIIT University, Bhubaneswar</div>
+      </div>
+      <div class="dates">2017 – 2021</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="contact">
+        <a href="mailto:santoshtayi1999@gmail.com">santoshtayi1999@gmail.com</a>
+        <a href="tel:+917684099109">+91 76840 99109</a>
+        <a href="https://linkedin.com/in/santosh-tayi" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <a class="resume-btn" href="Santosh_Tayi_Resume_ATS.docx" download>Download Résumé</a>
+    </div>
+    <div class="copy">Hyderabad, India · Built with intent, not a template.</div>
+  </div>
+</footer>
+
+</body>
+</html>
