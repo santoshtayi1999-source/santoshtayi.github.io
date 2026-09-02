@@ -128,12 +128,12 @@
     .hero-panel {
       position: relative;
       overflow: hidden;
-      min-height: 590px;
-      padding: clamp(34px, 6vw, 76px);
+      min-height: 620px;
+      padding: clamp(34px, 5.5vw, 70px);
       display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(250px, 0.5fr);
-      gap: 60px;
-      align-items: end;
+      grid-template-columns: minmax(0, 1.14fr) minmax(310px, 0.56fr);
+      gap: clamp(38px, 5vw, 72px);
+      align-items: center;
       border-radius: 28px;
       background: var(--dark);
       color: var(--white);
@@ -141,21 +141,22 @@
     .hero-panel::after {
       content: "";
       position: absolute;
-      width: 420px;
-      height: 420px;
-      right: -180px;
-      top: -190px;
+      width: 460px;
+      height: 460px;
+      right: -118px;
+      top: -245px;
       border: 1px solid rgba(255,255,255,0.13);
       border-radius: 50%;
       box-shadow: 0 0 0 54px rgba(255,255,255,0.025), 0 0 0 108px rgba(255,255,255,0.018);
       pointer-events: none;
     }
+    .hero-content { position: relative; z-index: 2; }
     .hero .eyebrow { color: #9db0ff; }
     .hero h1 {
-      max-width: 840px;
+      max-width: 760px;
       margin-bottom: 24px;
       color: var(--white);
-      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-size: clamp(3rem, 6.2vw, 5.75rem);
       font-weight: 600;
       letter-spacing: -0.065em;
       line-height: 0.98;
@@ -173,13 +174,65 @@
     .hero .button:hover { border-color: #9db0ff; background: #9db0ff; }
     .hero .button.secondary { border-color: #555b66; background: transparent; color: var(--white); }
     .hero .button.secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
-    .hero-aside {
-      position: relative;
-      z-index: 1;
-      padding-left: 24px;
-      border-left: 1px solid #343840;
+    .hero-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 46px;
+      padding-top: 24px;
+      border-top: 1px solid #343840;
     }
-    .availability { display: flex; align-items: center; gap: 9px; margin-bottom: 24px; color: #dfe3ea; font-size: 0.88rem; }
+    .hero-fact span {
+      display: block;
+      margin-bottom: 4px;
+      color: #747b88;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .hero-fact strong { color: var(--white); font-size: 0.9rem; font-weight: 500; }
+    .hero-portrait {
+      position: relative;
+      z-index: 2;
+      align-self: stretch;
+      min-height: 480px;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 24px;
+      background: #232730;
+      box-shadow: 0 26px 70px rgba(0,0,0,0.32);
+    }
+    .hero-portrait img {
+      width: 100%;
+      height: 100%;
+      min-height: 480px;
+      object-fit: cover;
+      object-position: 50% 18%;
+      filter: saturate(0.94) contrast(1.02);
+    }
+    .hero-portrait::after {
+      content: "";
+      position: absolute;
+      inset: 52% 0 0;
+      background: linear-gradient(to bottom, transparent, rgba(10,12,16,0.9));
+      pointer-events: none;
+    }
+    .portrait-caption {
+      position: absolute;
+      z-index: 1;
+      right: 22px;
+      bottom: 22px;
+      left: 22px;
+      padding: 16px 18px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 14px;
+      background: rgba(17,19,24,0.72);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+      backdrop-filter: blur(14px);
+    }
+    .availability { display: flex; align-items: center; gap: 9px; margin-bottom: 5px; color: #dfe3ea; font-size: 0.78rem; }
     .availability::before {
       content: "";
       width: 8px;
@@ -189,17 +242,7 @@
       background: #64d39b;
       box-shadow: 0 0 0 5px rgba(100, 211, 155, 0.12);
     }
-    .hero-meta { display: grid; gap: 18px; }
-    .hero-meta-item span {
-      display: block;
-      margin-bottom: 2px;
-      color: #747b88;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-    .hero-meta-item strong { color: var(--white); font-size: 0.94rem; font-weight: 500; }
+    .portrait-caption strong { color: var(--white); font-size: 1rem; font-weight: 600; }
 
     /* Sections */
     .section { padding: 100px 0; }
@@ -234,38 +277,111 @@
     .metric:first-child strong { color: var(--accent); }
     .metric span { display: block; color: var(--muted); font-size: 0.88rem; line-height: 1.45; }
 
-    /* Case studies */
-    .cases { display: grid; gap: 20px; }
-    .case {
-      padding: clamp(26px, 4vw, 44px);
-      display: grid;
-      grid-template-columns: 64px minmax(220px, 0.8fr) minmax(0, 1.4fr);
-      gap: 30px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--paper);
-      transition: border-color 160ms ease, transform 160ms ease;
+    /* Embedded case studies */
+    .case-index-nav {
+      margin: -10px 0 38px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
-    .case:hover { transform: translateY(-3px); border-color: #aeb8df; }
-    .case-index { color: var(--accent); font-family: "Manrope", system-ui, sans-serif; font-size: 0.82rem; font-weight: 800; }
-    .case-title h3 { margin: 7px 0 14px; font-size: clamp(1.35rem, 2.5vw, 2rem); }
-    .case-title p { margin-bottom: 0; color: var(--muted); font-size: 0.9rem; }
-    .case-story { display: grid; gap: 18px; }
-    .story-row { display: grid; grid-template-columns: 88px 1fr; gap: 18px; }
-    .story-row b { color: var(--ink); font-size: 0.75rem; letter-spacing: 0.09em; text-transform: uppercase; }
-    .story-row p { margin-bottom: 0; color: var(--muted); font-size: 0.93rem; }
-    .story-row.impact p { color: var(--ink); font-weight: 700; }
-
-    /* Method */
-    .method { padding: 64px; border-radius: 24px; background: var(--accent); color: var(--white); }
-    .method .eyebrow { color: #cbd4ff; }
-    .method h2 { max-width: 720px; margin-bottom: 44px; color: var(--white); font-size: clamp(2rem, 4vw, 3.6rem); }
-    .method-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-    .method-step { padding-right: 26px; }
-    .method-step + .method-step { padding-left: 26px; border-left: 1px solid rgba(255,255,255,0.24); }
-    .method-step span { color: #cbd4ff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; }
-    .method-step h3 { margin: 12px 0 10px; color: var(--white); font-size: 1.18rem; }
-    .method-step p { margin-bottom: 0; color: #e0e5fb; font-size: 0.88rem; line-height: 1.55; }
+    .case-index-nav a {
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .case-index-nav a:hover { border-color: var(--accent); color: var(--accent); }
+    .case-studies { display: grid; gap: 34px; }
+    .case-study {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--paper);
+    }
+    .case-study-head {
+      padding: clamp(28px, 5vw, 54px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(230px, 0.5fr);
+      gap: 48px;
+      align-items: end;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-number {
+      margin-bottom: 20px;
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .case-study h3 { margin-bottom: 14px; font-size: clamp(1.8rem, 4vw, 3.25rem); }
+    .case-summary { max-width: 670px; margin-bottom: 0; color: var(--muted); font-size: 1rem; }
+    .case-outcome {
+      padding-left: 28px;
+      border-left: 2px solid var(--accent);
+    }
+    .case-outcome span { display: block; margin-bottom: 6px; color: var(--muted); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.11em; text-transform: uppercase; }
+    .case-outcome strong { display: block; font-family: "Manrope", system-ui, sans-serif; font-size: clamp(1.65rem, 3vw, 2.6rem); letter-spacing: -0.055em; line-height: 1.05; }
+    .case-outcome small { display: block; margin-top: 9px; color: var(--muted); font-size: 0.78rem; }
+    .case-body { padding: clamp(28px, 5vw, 52px); }
+    .case-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .case-column { padding-top: 17px; border-top: 2px solid var(--ink); }
+    .case-column span { display: block; margin-bottom: 10px; color: var(--accent); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+    .case-column h4 { margin-bottom: 10px; font-size: 1.02rem; letter-spacing: -0.02em; }
+    .case-column p { margin-bottom: 0; color: var(--muted); font-size: 0.91rem; }
+    .decision-flow {
+      margin-top: 36px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--white);
+    }
+    .flow-step { position: relative; padding: 22px; }
+    .flow-step + .flow-step { border-left: 1px solid var(--line); }
+    .flow-step + .flow-step::before {
+      content: "→";
+      position: absolute;
+      left: -11px;
+      top: 21px;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--accent);
+      font-size: 0.83rem;
+      font-weight: 800;
+    }
+    .flow-step b { display: block; margin-bottom: 5px; font-size: 0.84rem; }
+    .flow-step p { margin-bottom: 0; color: var(--muted); font-size: 0.8rem; line-height: 1.45; }
+    .case-footer {
+      margin-top: 30px;
+      padding-top: 22px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 26px;
+      border-top: 1px solid var(--line);
+    }
+    .case-role { max-width: 720px; margin-bottom: 0; color: var(--muted); font-size: 0.86rem; }
+    .case-role strong { color: var(--ink); }
+    .case-skills { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+    .case-skill { padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 0.72rem; font-weight: 700; }
+    .evidence-note {
+      margin-top: 26px;
+      padding: 18px 20px;
+      border-radius: 12px;
+      background: #eeeee9;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    .evidence-note strong { color: var(--ink); }
 
     /* Experience */
     .experience-list { border-top: 1px solid var(--line); }
@@ -294,8 +410,8 @@
     .education-item { padding: 22px 0; display: flex; justify-content: space-between; gap: 30px; border-bottom: 1px solid var(--line); }
     .education-item:last-child { border-bottom: 0; }
     .education-item h4 { margin-bottom: 5px; font-size: 1rem; }
-    .education-item p, .education-item time { margin-bottom: 0; color: var(--muted); font-size: 0.86rem; }
-    .education-item time { white-space: nowrap; }
+    .education-item p, .edu-dates { margin-bottom: 0; color: var(--muted); font-size: 0.86rem; }
+    .edu-dates { white-space: nowrap; }
     .beyond {
       padding: clamp(32px, 5vw, 58px);
       display: grid;
@@ -325,17 +441,20 @@
 
     @media (max-width: 900px) {
       .hero-panel { min-height: auto; grid-template-columns: 1fr; gap: 54px; }
-      .hero-aside { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 35px; }
-      .availability { grid-column: 1 / -1; margin-bottom: 0; }
+      .hero h1 { max-width: 760px; }
+      .hero-portrait { min-height: 540px; }
+      .hero-portrait img { min-height: 540px; }
       .section-head { grid-template-columns: 1fr; gap: 18px; }
       .impact-wall { grid-template-columns: 1fr 1fr; }
       .metric:nth-child(3) { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
       .metric:nth-child(4) { border-top: 1px solid var(--line); }
-      .case { grid-template-columns: 48px 1fr; }
-      .case-story { grid-column: 2; }
-      .method { padding: 44px; }
-      .method-grid { grid-template-columns: 1fr 1fr; gap: 30px 0; }
-      .method-step:nth-child(3) { padding-left: 0; border-left: 0; }
+      .case-study-head { grid-template-columns: 1fr; gap: 28px; }
+      .case-outcome { padding-left: 0; padding-top: 18px; border-left: 0; border-top: 2px solid var(--accent); }
+      .case-columns { grid-template-columns: 1fr; gap: 22px; }
+      .decision-flow { grid-template-columns: 1fr 1fr; }
+      .flow-step:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+      .flow-step:nth-child(4) { border-top: 1px solid var(--line); }
+      .flow-step:nth-child(3)::before { display: none; }
       .role { grid-template-columns: 145px 1fr; }
       .role ul { grid-column: 2; }
       .two-col { grid-template-columns: 1fr; }
@@ -349,22 +468,26 @@
       .hero { padding-top: 20px; }
       .hero-panel { padding: 30px 24px; border-radius: 20px; }
       .hero h1 { font-size: clamp(2.7rem, 14vw, 4.2rem); }
-      .hero-aside { grid-template-columns: 1fr; }
+      .hero-copy { font-size: 1rem; }
+      .hero-facts { grid-template-columns: 1fr 1fr; margin-top: 36px; }
+      .hero-fact:last-child { grid-column: 1 / -1; }
+      .hero-portrait { min-height: 410px; border-radius: 18px; }
+      .hero-portrait img { min-height: 410px; object-position: 50% 16%; }
+      .portrait-caption { right: 14px; bottom: 14px; left: 14px; }
       .section { padding: 74px 0; }
       .impact-wall { grid-template-columns: 1fr; }
       .metric, .metric + .metric { padding: 22px 0; border-left: 0; border-top: 1px solid var(--line); }
       .metric:first-child { border-top: 0; }
-      .case { grid-template-columns: 1fr; gap: 12px; }
-      .case-story { grid-column: 1; margin-top: 12px; }
-      .story-row { grid-template-columns: 1fr; gap: 4px; }
-      .method { padding: 34px 24px; border-radius: 20px; }
-      .method-grid { grid-template-columns: 1fr; gap: 0; }
-      .method-step, .method-step + .method-step, .method-step:nth-child(3) { padding: 22px 0; border-left: 0; border-top: 1px solid rgba(255,255,255,0.24); }
-      .method-step:first-child { border-top: 0; }
+      .case-study { border-radius: 18px; }
+      .decision-flow { grid-template-columns: 1fr; }
+      .flow-step + .flow-step, .flow-step:nth-child(3), .flow-step:nth-child(4) { border-left: 0; border-top: 1px solid var(--line); }
+      .flow-step + .flow-step::before { display: none; }
+      .case-footer { flex-direction: column; }
+      .case-skills { justify-content: flex-start; }
       .role { grid-template-columns: 1fr; gap: 12px; }
       .role ul { grid-column: 1; }
       .education-item { display: block; }
-      .education-item time { display: inline-block; margin-top: 8px; }
+      .edu-dates { display: inline-block; margin-top: 8px; }
       .beyond { grid-template-columns: 1fr; gap: 32px; }
       .footer-row { align-items: flex-start; flex-direction: column; }
     }
@@ -393,21 +516,27 @@
     <header class="hero">
       <div class="wrap">
         <div class="hero-panel">
-          <div>
-            <p class="eyebrow">Santosh Tayi · Product &amp; Data Analyst</p>
-            <h1>Messy problems.<br><span>Measurable outcomes.</span></h1>
-            <p class="hero-copy">I turn operational complexity into product insight, scalable processes and decisions that improve how teams—and customers—experience a business.</p>
+          <div class="hero-content">
+            <p class="eyebrow">Product Analytics · Business Analytics · Data-led Operations</p>
+            <h1>Find the signal.<br><span>Fix the system.</span></h1>
+            <p class="hero-copy">I'm Santosh Tayi, a Product &amp; Data Analyst with 5+ years turning ambiguous operational data into sharper decisions, scalable processes and measurable business outcomes.</p>
             <div class="hero-actions">
               <a class="button" href="#impact">View selected impact <span aria-hidden="true">↓</span></a>
               <a class="button secondary" href="https://linkedin.com/in/santosh-tayi" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
             </div>
+            <div class="hero-facts" aria-label="Professional summary">
+              <div class="hero-fact"><span>Experience</span><strong>5+ years</strong></div>
+              <div class="hero-fact"><span>Focus</span><strong>Product · Data · Operations</strong></div>
+              <div class="hero-fact"><span>Based in</span><strong>Hyderabad, India</strong></div>
+            </div>
           </div>
-          <aside class="hero-aside" aria-label="Professional summary">
-            <div class="availability">Open to high-ownership analytics roles</div>
-            <div class="hero-meta-item"><span>Experience</span><strong>5+ years</strong></div>
-            <div class="hero-meta-item"><span>Focus</span><strong>Product · Data · Operations</strong></div>
-            <div class="hero-meta-item"><span>Based in</span><strong>Hyderabad, India</strong></div>
-          </aside>
+          <figure class="hero-portrait">
+            <img src="santosh-corporate-headshot.png" alt="Santosh Tayi, Product and Data Analyst" width="1080" height="1456" fetchpriority="high">
+            <figcaption class="portrait-caption">
+              <span class="availability">Currently</span>
+              <strong>Product Analyst · Uber</strong>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </header>
@@ -417,7 +546,7 @@
         <div class="section-head">
           <div>
             <p class="eyebrow">Career snapshot</p>
-            <h2 id="snapshot-title">Evidence before adjectives.</h2>
+            <h2 id="snapshot-title">Impact before adjectives.</h2>
           </div>
           <p>My work sits where product thinking meets operational reality: finding patterns in imperfect data, aligning teams around the real problem and building systems that hold up at scale.</p>
         </div>
@@ -434,69 +563,115 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Selected impact</p>
-            <h2 id="impact-title">From signal to business result.</h2>
+            <p class="eyebrow">Selected case studies</p>
+            <h2 id="impact-title">Three decisions that show how I work.</h2>
           </div>
-          <p>Three examples of how I frame problems, work through the data and turn insight into an outcome.</p>
+          <p>Each story is embedded here—problem, ownership, decision and outcome—so you can assess the work without opening another deck.</p>
         </div>
 
-        <div class="cases">
-          <article class="case">
-            <div class="case-index">01</div>
-            <div class="case-title">
-              <p class="eyebrow">Operational intelligence</p>
-              <h3>Turning KPI noise into targeted service improvements</h3>
-              <p>SQL · Dashboard analysis · Root-cause analysis</p>
+        <nav class="case-index-nav" aria-label="Case-study index">
+          <a href="#case-systems">01 · Operating system</a>
+          <a href="#case-risk">02 · Risk investigation</a>
+          <a href="#case-access">03 · Accessible product</a>
+        </nav>
+
+        <div class="case-studies">
+          <article class="case-study" id="case-systems">
+            <div class="case-study-head">
+              <div>
+                <div class="case-number">Case 01 · Process &amp; systems design</div>
+                <h3>Building a team's operating system from zero</h3>
+                <p class="case-summary">A pilot Bugs &amp; Outages team inherited a 100+ case backlog without consistent routing, documented procedures or a resilient escalation model.</p>
+              </div>
+              <div class="case-outcome">
+                <span>Measured outcome</span>
+                <strong>25% faster ramp</strong>
+                <small>after SOPs and coaching frameworks</small>
+              </div>
             </div>
-            <div class="case-story">
-              <div class="story-row"><b>Problem</b><p>Recurring operational issues were affecting service quality, but the highest-risk patterns were difficult to isolate across a broad KPI set.</p></div>
-              <div class="story-row"><b>Approach</b><p>Analysed trends across 25 KPIs, identified the strongest risk signals and led root-cause work that translated findings into six focused process fixes.</p></div>
-              <div class="story-row impact"><b>Impact</b><p>Contributed to an 18% improvement across four key metrics and reduced repeat incidents by 10%.</p></div>
+            <div class="case-body">
+              <div class="case-columns">
+                <div class="case-column"><span>01 · Starting point</span><h4>Four failures, one queue</h4><p>No SOPs, inconsistent Jira naming, a single-owner bottleneck and a backlog without a dependable triage path.</p></div>
+                <div class="case-column"><span>02 · What I built</span><h4>A coherent operating model</h4><p>Created the Jira taxonomy, two-tier investigation flow, first team SOPs, AI-assisted resolution workflows and two management dashboards.</p></div>
+                <div class="case-column"><span>03 · Business result</span><h4>A system that could scale</h4><p>Moved 100+ cases into a sustainable queue, reduced new-hire ramp time by 25% and supported 30+ analysts as a founding-cohort SME.</p></div>
+              </div>
+              <div class="decision-flow" aria-label="Process transformation sequence">
+                <div class="flow-step"><b>Standardise</b><p>One Jira naming system</p></div>
+                <div class="flow-step"><b>De-risk</b><p>Tier I triage → Tier II investigation</p></div>
+                <div class="flow-step"><b>Document</b><p>SOPs and coaching framework</p></div>
+                <div class="flow-step"><b>Measure</b><p>Handoff, throughput and quality trackers</p></div>
+              </div>
+              <div class="case-footer">
+                <p class="case-role"><strong>My ownership:</strong> Workflow architecture, taxonomy, SOP documentation, dashboard design and analyst enablement. The work demonstrates that I can move beyond reporting a problem and build the operating layer that prevents it recurring.</p>
+                <div class="case-skills" aria-label="Skills demonstrated"><span class="case-skill">Process design</span><span class="case-skill">KPI design</span><span class="case-skill">Change management</span></div>
+              </div>
             </div>
           </article>
 
-          <article class="case">
-            <div class="case-index">02</div>
-            <div class="case-title">
-              <p class="eyebrow">Process design</p>
-              <h3>Rebuilding an escalation system for scale</h3>
-              <p>Workflow design · Jira taxonomy · Dashboards</p>
+          <article class="case-study" id="case-risk">
+            <div class="case-study-head">
+              <div>
+                <div class="case-number">Case 02 · Risk &amp; compliance</div>
+                <h3>Challenging a costly false-positive fraud signal</h3>
+                <p class="case-summary">A pattern of legitimate temporary-driver insurance policies was being interpreted as fraud, putting correct driver outcomes and significant value at risk.</p>
+              </div>
+              <div class="case-outcome">
+                <span>Estimated impact</span>
+                <strong>$200K–$350K</strong>
+                <small>potential wrongful losses prevented</small>
+              </div>
             </div>
-            <div class="case-story">
-              <div class="story-row"><b>Problem</b><p>A 100+ case backlog, inconsistent routing and a single-owner escalation path were slowing investigation and creating avoidable dependency.</p></div>
-              <div class="story-row"><b>Approach</b><p>Built the triage workflow, introduced a consistent Jira taxonomy, redesigned escalation into a two-tier model and created the team's first operating playbooks and visibility dashboards.</p></div>
-              <div class="story-row impact"><b>Impact</b><p>Stabilised the queue, removed a single point of failure and helped reduce new-hire ramp time by 25%.</p></div>
+            <div class="case-body">
+              <div class="case-columns">
+                <div class="case-column"><span>01 · Risk</span><h4>Automation looked decisive</h4><p>The policy documents resembled a known fraud pattern. Accepting the flag at face value would have produced wrongful account actions.</p></div>
+                <div class="case-column"><span>02 · Judgement</span><h4>I questioned the pattern</h4><p>Reviewed what was triggering the match and validated the documents against the legitimate temporary-driver insurance context instead of treating the flag as the conclusion.</p></div>
+                <div class="case-column"><span>03 · Outcome</span><h4>The decision was corrected</h4><p>Confirmed the policies were legitimate, prevented incorrect driver actions and surfaced a review gap worth correcting.</p></div>
+              </div>
+              <div class="decision-flow" aria-label="Risk investigation sequence">
+                <div class="flow-step"><b>Flag</b><p>Documents matched a fraud pattern</p></div>
+                <div class="flow-step"><b>Question</b><p>Separate signal from conclusion</p></div>
+                <div class="flow-step"><b>Validate</b><p>Check the policy context</p></div>
+                <div class="flow-step"><b>Correct</b><p>Protect drivers and business value</p></div>
+              </div>
+              <div class="case-footer">
+                <p class="case-role"><strong>My ownership:</strong> Proactive case investigation, evidence review and risk judgement. The strongest signal here is not the size of the estimate—it is the willingness to challenge an automated decision when the underlying evidence did not hold.</p>
+                <div class="case-skills" aria-label="Skills demonstrated"><span class="case-skill">Risk analysis</span><span class="case-skill">Root-cause investigation</span><span class="case-skill">Judgement</span></div>
+              </div>
             </div>
           </article>
 
-          <article class="case">
-            <div class="case-index">03</div>
-            <div class="case-title">
-              <p class="eyebrow">Risk &amp; quality</p>
-              <h3>Challenging a costly false-positive fraud signal</h3>
-              <p>Investigation · Policy analysis · Risk judgement</p>
+          <article class="case-study" id="case-access">
+            <div class="case-study-head">
+              <div>
+                <div class="case-number">Case 03 · Product initiative · Ongoing</div>
+                <h3>Reframing lower senior usage as an access problem</h3>
+                <p class="case-summary">Lower direct app usage among riders aged 60+ could have been read as lower demand. The booking behaviour pointed instead to friction in how older riders accessed the experience.</p>
+              </div>
+              <div class="case-outcome">
+                <span>Current status</span>
+                <strong>Ongoing</strong>
+                <small>no launch or outcome metric claimed yet</small>
+              </div>
             </div>
-            <div class="case-story">
-              <div class="story-row"><b>Problem</b><p>A group of AON insurance policies had been flagged as potentially fraudulent, creating the risk of incorrect action and substantial financial loss.</p></div>
-              <div class="story-row"><b>Approach</b><p>Investigated the underlying policy pattern, validated it against the relevant U.S. temporary-driver insurance context and surfaced the false-positive assessment.</p></div>
-              <div class="story-row impact"><b>Impact</b><p>Prevented an estimated $200–350K in wrongful losses while maintaining 99% quality performance.</p></div>
+            <div class="case-body">
+              <div class="case-columns">
+                <div class="case-column"><span>01 · Signal</span><h4>Lower direct booking</h4><p>Usage analysis showed riders aged 60+ were less likely to book through the app directly than younger groups.</p></div>
+                <div class="case-column"><span>02 · Reframe</span><h4>Need was not the same as usage</h4><p>Booking behaviour suggested rides were often being arranged on the rider's behalf, making usability and account access the more useful product question.</p></div>
+                <div class="case-column"><span>03 · Response</span><h4>Design around the friction</h4><p>Partnered with Engineering around a simplified booking path and dedicated support for login and account setup.</p></div>
+              </div>
+              <div class="decision-flow" aria-label="Senior-friendly product initiative sequence">
+                <div class="flow-step"><b>Observe</b><p>Age-group usage gap</p></div>
+                <div class="flow-step"><b>Reframe</b><p>Access friction, not assumed demand</p></div>
+                <div class="flow-step"><b>Scope</b><p>Simpler flow and support path</p></div>
+                <div class="flow-step"><b>Build</b><p>Cross-functional work in progress</p></div>
+              </div>
+              <div class="case-footer">
+                <p class="case-role"><strong>My ownership:</strong> Analysed the usage pattern, brought the finding into a product conversation and helped shape the proposed response. Because the initiative is ongoing, this case demonstrates product judgement and cross-functional execution—not a completed business result.</p>
+                <div class="case-skills" aria-label="Skills demonstrated"><span class="case-skill">Product analytics</span><span class="case-skill">Problem framing</span><span class="case-skill">Accessibility</span></div>
+              </div>
+              <div class="evidence-note"><strong>Confidentiality note:</strong> Details are sanitized to protect internal information. Proprietary values and product screens are intentionally omitted.</div>
             </div>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap">
-        <div class="method">
-          <p class="eyebrow">How I solve problems</p>
-          <h2>Structured enough to be rigorous. Practical enough to ship.</h2>
-          <div class="method-grid">
-            <div class="method-step"><span>01</span><h3>Understand</h3><p>Clarify the business question, user pain and operating constraints.</p></div>
-            <div class="method-step"><span>02</span><h3>Analyse</h3><p>Interrogate data, workflows and edge cases to find the real driver.</p></div>
-            <div class="method-step"><span>03</span><h3>Recommend</h3><p>Turn insight into a prioritised, workable decision or intervention.</p></div>
-            <div class="method-step"><span>04</span><h3>Measure</h3><p>Define success, track adoption and learn from the business result.</p></div>
-          </div>
         </div>
       </div>
     </section>
@@ -516,9 +691,9 @@
             <div class="role-date">Oct 2025 — Present</div>
             <div><h3>Product Analyst / Service Team Analyst III</h3><div class="role-company">Uber</div></div>
             <ul>
-              <li>Analyse 25 operational KPIs and translate risk signals into service-quality action.</li>
-              <li>Lead root-cause analysis and cross-functional response for high-severity global driver incidents.</li>
-              <li>Partner with Engineering on a simplified booking and support experience for riders aged 60+.</li>
+              <li>Analyse 25 operational KPIs to surface quality risks, contributing to an 18% improvement across four key metrics.</li>
+              <li>Lead root-cause analysis that has delivered six process fixes and reduced repeat incidents by 10%.</li>
+              <li>Coordinate high-severity incidents across 12 stakeholder teams while partnering with Engineering on an accessible booking initiative.</li>
             </ul>
           </article>
 
@@ -577,12 +752,12 @@
             <h3>Education</h3>
             <p>Formal business analytics depth built on practical operating experience.</p>
             <div class="education-item">
-              <div><h4>MBA · Business Analytics</h4><p>BITS Pilani, WILP</p></div>
-              <time datetime="2024/2026">2024 — 2026</time>
+              <div><h4>MBA · Business Analytics</h4><p>BITS Pilani, WILP · Capstone: RFM-based rider segmentation</p></div>
+              <span class="edu-dates">2024 — 2026</span>
             </div>
             <div class="education-item">
               <div><h4>B.Tech · Mechanical Engineering</h4><p>Automobile specialisation · KIIT University</p></div>
-              <time datetime="2017/2021">2017 — 2021</time>
+              <span class="edu-dates">2017 — 2021</span>
             </div>
           </div>
         </div>
